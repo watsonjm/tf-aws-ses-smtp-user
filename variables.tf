@@ -25,3 +25,8 @@ variable "verify_domain" {
   default     = true
   description = "Set to false if DKIM and TXT records already exist for some reason"
 }
+variable "create_mail_from_records" {
+  type        = bool
+  default     = true
+  description = "Determines if MX and TXT records for mail from should be created."
+}

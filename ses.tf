@@ -48,6 +48,7 @@ resource "aws_ses_domain_mail_from" "this" {
 }
 
 resource "aws_route53_record" "mail_from_mx" {
+  count   = var.create_mail_from_records ? 1 : 0
   zone_id = local.ses_domain.zone_id
   name    = aws_ses_domain_mail_from.this.mail_from_domain
   type    = "MX"
@@ -57,6 +58,7 @@ resource "aws_route53_record" "mail_from_mx" {
 
 #TXT record for SPF
 resource "aws_route53_record" "mail_from_txt" {
+  count   = var.create_mail_from_records ? 1 : 0
   zone_id = local.ses_domain.zone_id
   name    = aws_ses_domain_mail_from.this.mail_from_domain
   type    = "TXT"
