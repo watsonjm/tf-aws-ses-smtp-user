@@ -14,7 +14,7 @@ resource "aws_ses_domain_identity" "this" {
 }
 
 resource "aws_route53_record" "this" {
-  count   = var.verify_domain ? 1 : 0
+  count   = var.verify_domain && var.use_txt_record_verification ? 1 : 0
   zone_id = local.ses_domain.zone_id
   name    = "_amazonses.${aws_ses_domain_identity.this.id}"
   type    = "TXT"
@@ -23,10 +23,10 @@ resource "aws_route53_record" "this" {
 }
 
 resource "aws_ses_domain_identity_verification" "this" {
-  count  = var.wait_ses_validation ? 1 : 0
+  count  = var.wait_ses_validation && var.use_txt_record_verification ? 1 : 0
   domain = aws_ses_domain_identity.this.id
 
-  depends_on = [aws_route53_record.this]
+  depends_on = [aws_route53_record.0.this]
 }
 
 resource "aws_ses_domain_dkim" "this" {

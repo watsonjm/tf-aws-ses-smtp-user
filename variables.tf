@@ -30,3 +30,8 @@ variable "create_mail_from_records" {
   default     = true
   description = "Determines if MX and TXT records for mail from should be created."
 }
+variable "use_txt_record_verification" {
+  type        = bool
+  default     = false
+  description = "TXT record verification is legacy in AWS, normally should not be needed."
+}
