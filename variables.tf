@@ -13,6 +13,7 @@ variable "tag_prefix" {
 }
 variable "common_tags" {
   type        = map(any)
+  default     = null
   description = "map of tags"
 }
 variable "pgp_key" {
